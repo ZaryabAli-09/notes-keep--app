@@ -75,7 +75,7 @@ const registerUser = async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       {
         expiresIn: "1h",
-      }
+      },
     );
 
     const savedUser = User({
@@ -134,7 +134,7 @@ const loginUser = async (req, res) => {
 
     const isPasswordValid = bcryptjs.compareSync(
       password,
-      isUserRegistered.password
+      isUserRegistered.password,
     );
 
     if (!isPasswordValid) {
@@ -155,7 +155,7 @@ const loginUser = async (req, res) => {
         process.env.ACCESS_TOKEN_SECRET,
         {
           expiresIn: "10d",
-        }
+        },
       );
       return res
         .status(200)
@@ -178,7 +178,7 @@ const loginUser = async (req, res) => {
         process.env.ACCESS_TOKEN_SECRET,
         {
           expiresIn: "1h",
-        }
+        },
       );
       const user = await User.findOneAndUpdate(
         { email },
@@ -187,7 +187,7 @@ const loginUser = async (req, res) => {
             verificationToken: newVerificationToken,
           },
         },
-        { new: true }
+        { new: true },
       );
 
       // send verification link
